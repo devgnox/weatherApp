@@ -17,28 +17,26 @@ weatherForm.addEventListener("submit", (e) => {
   loadingIcon.style.visibility = "visible";
   const location = search.value;
   console.log(location);
-  fetch("http://localhost:3000/weather?address=" + location).then(
-    (response) => {
-      response.json().then((data) => {
-        if (data.error) {
-          console.log(data.error);
-          msgOne.style.visibility = "visible";
-          msgOne.textContent = data.error;
-        } else {
-          loadingIcon.style.visibility = "hidden";
-          msgOne.style.visibility = "hidden";
-          forecastImg.src = data.forecast.weatherIcon;
-          forecastTemp.textContent = data.forecast.tempt;
-          forecastPrecip.textContent = data.forecast.precip;
-          forecastHumd.textContent = data.forecast.humid;
-          forecastFeelsLike.textContent = data.forecast.feell;
-          weatherDesc.textContent = data.forecast.weather_desc;
-          city.textContent = data.location;
-          hour.textContent = data.forecast.dateTime.slice(-5);
-          console.log(data.forecast);
-          console.log(data.location);
-        }
-      });
-    }
-  );
+  fetch("/weather?address=" + location).then((response) => {
+    response.json().then((data) => {
+      if (data.error) {
+        console.log(data.error);
+        msgOne.style.visibility = "visible";
+        msgOne.textContent = data.error;
+      } else {
+        loadingIcon.style.visibility = "hidden";
+        msgOne.style.visibility = "hidden";
+        forecastImg.src = data.forecast.weatherIcon;
+        forecastTemp.textContent = data.forecast.tempt;
+        forecastPrecip.textContent = data.forecast.precip;
+        forecastHumd.textContent = data.forecast.humid;
+        forecastFeelsLike.textContent = data.forecast.feell;
+        weatherDesc.textContent = data.forecast.weather_desc;
+        city.textContent = data.location;
+        hour.textContent = data.forecast.dateTime.slice(-5);
+        console.log(data.forecast);
+        console.log(data.location);
+      }
+    });
+  });
 });
